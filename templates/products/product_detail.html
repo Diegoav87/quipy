@@ -62,8 +62,8 @@
 								<span>
 									<span>US ${{product.regular_price}}</span>
 									<label>Quantity:</label>
-									<input type="text" value="3" />
-									<button type="button" class="btn btn-fefault cart">
+									<input type="text" placeholder="Qty" id="quantity" />
+									<button type="button" value={{product.id}} class="btn btn-fefault cart" id="add-cart">
 										<i class="fa fa-shopping-cart"></i>
 										Add to cart
 									</button>
@@ -137,4 +137,17 @@
 {% block scripts %}
 	<script src="{% static 'js/price-range.js' %}"></script>
 	<script src="{% static 'js/jquery.prettyPhoto.js' %}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="{% static 'js/addToCart.js' %}"></script>
+	<script>
+		const addCartBtn = document.querySelector("#add-cart");
+		const qtyInput = document.querySelector("#quantity");
+		const cartCount = document.querySelector("#cart-count");
+
+		addCartBtn.addEventListener('click', function(e) {
+			e.preventDefault();
+
+			addToCart(addCartBtn, qtyInput.value, cartCount, "{{csrf_token}}", "{% url 'cart:cart_add' %}");
+		})
+	</script>
 {% endblock scripts %}

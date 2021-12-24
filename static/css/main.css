@@ -1627,7 +1627,7 @@ h2.title {
 
 .cart_product {
   display: block;
-  margin: 15px -70px 10px 25px;
+  margin: 0px 5px 0px 0px;
 }
 
 .cart_quantity_button a {
@@ -2518,6 +2518,15 @@ h2.title {
 
 .contact-info .social-networks ul li a:hover{
   color: #FE980F;
+}
+
+.cart-product-img {
+  height: 110px;
+  width: 110px;
+}
+
+.cart_description {
+  width: 30%;
 }
 
 

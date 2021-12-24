@@ -4,15 +4,14 @@ from .models import Product, Category
 # Create your views here.
 
 
-def categories(request):
-    return {
-        "categories": Category.objects.all()
-    }
-
-
 def all_products(request):
     products = Product.objects.all()
     return render(request, 'index.html', {'products': products})
+
+
+def shop(request):
+    products = Product.objects.all()
+    return render(request, 'products/shop.html', {'products': products})
 
 
 def get_by_category(request, slug):

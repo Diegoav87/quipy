@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Shop | Quipy</title>
+<link href="{% static 'css/prettyPhoto.css' %}" rel="stylesheet" />
+<link href="{% static 'css/price-range.css' %}" rel="stylesheet" />
+<link href="{% static 'css/animate.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				{% include 'products/filter_sidebar.html' with current_category=None %}
+			</div>
+
+			<div class="col-sm-9 padding-right">
+				{% include 'products/product_grid.html' with products=products %}
+			</div>
+		</div>
+	</div>
+</section>
+{% include 'footer.html' %}
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'js/price-range.js' %}"></script>
+<script src="{% static 'js/jquery.prettyPhoto.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{% static 'js/addToCart.js' %}"></script>
+<script>
+	const addCartBtns = document.querySelectorAll("#add-cart");
+	const cartCount = document.querySelector("#cart-count");
+
+	addCartBtns.forEach(btn => {
+		btn.addEventListener('click', function (e) {
+			e.preventDefault();
+
+			addToCart(btn, 1, cartCount, "{{csrf_token}}", "{% url 'cart:cart_add' %}");		
+		})
+	})
+</script>
+{% endblock scripts %}

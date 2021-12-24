@@ -34,4 +34,18 @@
 {% block scripts %}
 	<script src="{% static 'js/price-range.js' %}"></script>
 	<script src="{% static 'js/jquery.prettyPhoto.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="{% static 'js/addToCart.js' %}"></script>
+  <script>
+    const addCartBtns = document.querySelectorAll("#add-cart");
+    const cartCount = document.querySelector("#cart-count");
+
+    addCartBtns.forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        addToCart(btn, 1, cartCount, "{{csrf_token}}", "{% url 'cart:cart_add' %}");		
+      })
+    })
+  </script>
 {% endblock %}

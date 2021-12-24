@@ -2,12 +2,12 @@
 <div class="left-sidebar">
     <h2>Category</h2>
     {% if category %}
-        <nav aria-label="breadcrumb">
+        <div class="breadcrumbs">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'products:all_products' %}">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{category.name}}</li>
+                <li><a href="{% url 'products:all_products' %}">Home</a></li>
+                <li class="active">{{category.name}}</li>
             </ol>
-        </nav> 
+        </div>
     {% endif %}
     
     <div class="panel-group category-products" id="accordian">
