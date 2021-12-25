@@ -281,6 +281,10 @@ ul.sub-menu{
 /* XS Portrait */
 @media (max-width: 480px) {
 
+#form {
+	width: 80%;
+}
+
 .contactinfo{
 	text-align: center;
 }

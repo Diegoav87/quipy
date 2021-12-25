@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Reset Status | Quipy</title>
+{% endblock %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<section id="form"><!--form-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-sm-offset-1">
+                <div class="login-form"><!--login form-->
+                    {% if 'email' in request.get_full_path %}
+                        <h3 class="mb-4">Password Reset Success</h3>
+                        <p>Check your email for instructions</p>
+                    {% endif%}
+                    {% if 'complete' in request.get_full_path %}
+                        <h3 class="mb-4">Password Reset Success</h3>
+                        <a href="{% url "accounts:login-user" %}">Login</a>
+                    {% endif%}
+                </div><!--/login form-->
+            </div>
+        </div>
+    </div>
+</section><!--/form-->
+{% include 'footer.html' %}
+{% endblock content %}

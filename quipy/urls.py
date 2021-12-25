@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("products.urls")),
-    path('cart/', include('cart.urls'))
+    path('cart/', include('cart.urls')),
+    path('accounts/', include('accounts.urls'))
 ]
 
 handler404 = "quipy.views.page_not_found"

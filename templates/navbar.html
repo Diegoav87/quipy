@@ -18,7 +18,7 @@
           <div class="shop-menu pull-right">
             <ul class="nav navbar-nav">
               <li>
-                <a href="#"><i class="fa fa-user"></i> Account</a>
+                <a href="{% url 'accounts:dashboard' %}"><i class="fa fa-user"></i> Account</a>
               </li>
               <li>
                 <a href="#"><i class="fa fa-star"></i> Wishlist</a>
@@ -37,9 +37,18 @@
                 <i class="fa fa-shopping-cart"></i> Cart</a>
               {% endwith %}
               </li>
-              <li>
-                <a href="login.html"><i class="fa fa-lock"></i> Login</a>
-              </li>
+              {% if user.is_authenticated %}
+                <li>
+                  <a href="{% url 'accounts:logout' %}"><i class="fa fa-lock"></i> Logout</a>
+                </li>
+              {% else %}
+                <li>
+                  <a href="{% url 'accounts:login-user' %}"><i class="fa fa-lock"></i> Login</a>
+                </li>
+                <li>
+                  <a href="{% url 'accounts:register' %}"><i class="fa fa-lock"></i> Register</a>
+                </li>
+              {% endif %}
             </ul>
           </div>
         </div>
