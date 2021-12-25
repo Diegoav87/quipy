@@ -57,5 +57,10 @@ class Cart:
     def get_subtotal_price(self):
         return sum(Decimal(item['price']) * item['qty'] for item in self.cart.values())
 
+    def clear(self):
+        # Remove basket from session
+        del self.session['skey']
+        self.save()
+
     def save(self):
         self.session.modified = True

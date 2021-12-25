@@ -1,0 +1,183 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block meta %}
+<title>Checkout | Quipy</title>
+<link href="{% static 'css/prettyPhoto.css' %}" rel="stylesheet" />
+<link href="{% static 'css/price-range.css' %}" rel="stylesheet" />
+<link href="{% static 'css/animate.css' %}" rel="stylesheet" />
+{% endblock %} 
+
+{% block content %} 
+
+{% include 'navbar.html' %}
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="{% url 'products:all_products' %}">Home</a></li>
+                <li class="active">Check out</li>
+            </ol>
+        </div><!--/breadcrums-->
+
+        <div class="review-payment">
+            <h2>Review & Payment</h2>
+        </div>
+
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Item</td>
+                        <td class="description"></td>
+                        <td class="price">Price</td>
+                        <td class="quantity">Quantity</td>
+                        <td class="total">Total</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart %} 
+					{% with product=item.product %}
+					<tr id="row-{{product.id}}">
+						<td class="cart_product">
+							<a href="{{product.get_absolute_url}}"><img class="cart-product-img"
+									src="{{product.get_featured_image.image.url}}"
+									alt="{{product.get_featured_image.alt_text}}" /></a>
+						</td>
+						<td class="cart_description">
+							<h4>
+								<a href="{{product.get_absolute_url}}">{{product.title}}</a>
+							</h4>
+						</td>
+						<td class="cart_price">
+							<p data-price="{{product.regular_price}}">${{product.regular_price}}</p>
+						</td>
+						<td class="cart_quantity">
+							<p>{{item.qty}}</p>
+						</td>
+						<td class="cart_total">
+							<p class="cart_total_price">${{item.total_price}}</p>
+						</td>
+					</tr>
+					{% endwith %} 
+					{% endfor %}
+                    <tr>
+                        <td colspan="4">
+                        </td>
+                        <td colspan="1">
+                            <table class="table table-condensed total-result">
+                                <tr>
+                                    <td>Cart Sub Total</td>
+                                    <td>${{cart.get_subtotal_price}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Exo Tax</td>
+                                    <td>$2</td>
+                                </tr>
+                                <tr class="shipping-cost">
+                                    <td>Shipping Cost</td>
+                                    <td>Free</td>										
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td><span>${{cart.get_subtotal_price}}</span></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="shopper-informations">
+            <form id="payment-form" class="row">
+                {% comment %} <div class="col-sm-3">
+                    <div class="shopper-info">
+                        <p>Shopper Information</p>
+                        <form>
+                            <input type="text" placeholder="Customer Name">
+                            <input type="text" placeholder="User Name">
+                            <input type="password" placeholder="Password">
+                            <input type="password" placeholder="Confirm password">
+                        </form>
+                        <a class="btn btn-primary" href="">Get Quotes</a>
+                        <a class="btn btn-primary" href="">Continue</a>
+                    </div>
+                </div> {% endcomment %}
+                <div class="col-sm-4 clearfix" style="width: 100%;">
+                    <div class="bill-to row">
+                        <p style="margin-left: 12px;">Bill To</p>
+                        <div class="form-one col-sm-6">
+                            <div>
+                                {% comment %} <input type="text" placeholder="Company Name">
+                                <input type="text" placeholder="Email*">
+                                <input type="text" placeholder="Title">
+                                <input type="text" placeholder="First Name *">
+                                <input type="text" placeholder="Middle Name">
+                                <input type="text" placeholder="Last Name *"> {% endcomment %}
+                                <label class="form-label">Card Owner Name</label>
+                                <input id="name" type="text" placeholder="Card Owner Name">
+                                <label class="form-label">Address 1</label>
+                                <input id="address" type="text" placeholder="Address 1">
+                                <label class="form-label">Address 2</label>
+                                <input id="address-two" type="text" placeholder="Address 2">
+                                <label class="form-label">Zip Code / Postal Code</label>
+                                <input id="post-code" type="text" placeholder="Zip / Postal Code *">
+                            </div>
+                        </div>
+                        <div class="form-two col-sm-6">
+                            <div>
+                                <label class="form-label">Country</label>
+                                <select>
+                                    <option>-- Country --</option>
+                                    <option>United States</option>
+                                    <option>Bangladesh</option>
+                                    <option>UK</option>
+                                    <option>India</option>
+                                    <option>Pakistan</option>
+                                    <option>Ucrane</option>
+                                    <option>Canada</option>
+                                    <option>Dubai</option>
+                                </select>
+                                <label class="form-label">State / Province / Region</label>
+                                <select>
+                                    <option>-- State / Province / Region --</option>
+                                    <option>United States</option>
+                                    <option>Bangladesh</option>
+                                    <option>UK</option>
+                                    <option>India</option>
+                                    <option>Pakistan</option>
+                                    <option>Ucrane</option>
+                                    <option>Canada</option>
+                                    <option>Dubai</option>
+                                </select>
+                                {% comment %} <input type="password" placeholder="Confirm password">
+                                <input type="text" placeholder="Phone *">
+                                <input type="text" placeholder="Mobile Phone">
+                                <input type="text" placeholder="Fax"> {% endcomment %}
+                                <label class="form-label">Card</label>
+                                <div id="card-element" class="form-control form-control-payment"></div>
+                                <button id="submit-payment" style="margin-top: 10px; width: 100%;" class="btn btn-primary" data-secret={{client_secret}}>Pay</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>					
+            </form>
+        </div>
+    </div>
+</section> <!--/#cart_items-->
+{% include 'footer.html' %} 
+{% endblock content %} 
+
+{% block scripts %}
+<script src="{% static 'js/price-range.js' %}"></script>
+<script src="{% static 'js/jquery.prettyPhoto.js' %}"></script>
+<script>
+    const CSRF_TOKEN = "{{ csrf_token }}";
+    const addOrderUrl = "{% url 'orders:create-order' %}"
+</script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{% static 'js/stripePayment.js' %}" data-rel-js></script>
+
+{% endblock scripts %}

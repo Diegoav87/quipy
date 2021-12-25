@@ -24,7 +24,7 @@
                 <a href="#"><i class="fa fa-star"></i> Wishlist</a>
               </li>
               <li>
-                <a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a>
+                <a href="{% url 'payment:checkout' %}"><i class="fa fa-crosshairs"></i> Checkout</a>
               </li>
               <li>
               {% with total_qty=cart|length %}

@@ -22,7 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("products.urls")),
     path('cart/', include('cart.urls')),
-    path('accounts/', include('accounts.urls'))
+    path('accounts/', include('accounts.urls')),
+    path('payment/', include("payment.urls")),
+    path('orders/', include("orders.urls"))
 ]
 
 handler404 = "quipy.views.page_not_found"
